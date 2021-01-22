@@ -1,7 +1,8 @@
 import React from "react";
+import Map from "./components/Map.js";
 
 const Explorer = () => {
-  return <h1> Explorer </h1>;
+  return <Map />;
 };
 
 export default Explorer;

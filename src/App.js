@@ -12,17 +12,15 @@ const App = () => {
   return (
     <Fragment>
       <NavigationBar />
-      <Layout>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/explorer" component={Explorer} />
-            <Route exact path="/login" component={Login} />
-            <Route component={NoMatch} />
-          </Switch>
-          <Footer />
-        </Router>
-      </Layout>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/explorer" component={Explorer} />
+          <Route exact path="/login" component={Login} />
+          <Route component={NoMatch} />
+        </Switch>
+        <Footer />
+      </Router>
     </Fragment>
   );
 };
