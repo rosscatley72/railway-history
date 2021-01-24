@@ -9,7 +9,7 @@ function Homepage() {
     <TextPageStyle
       style={{ backgroundImage: `url(${WSH})`, backgroundSize: "cover" }}
     >
-      <Container className="home-text-panel">
+      <Container className="text-panel">
         <Title>Welcome to British Railway History. </Title>
         <p className="lead">
           This site is aiming to capture the history of Britain's Railways in
