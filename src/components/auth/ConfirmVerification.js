@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function () {
-    return (
-        <h1>confirm</h1>
-    )
-}
+const ConfirmVerification = () => {
+  return <h1>confirm</h1>;
+};
 
-export default 
-<h1>confirm</h1>
+export default ConfirmVerification;

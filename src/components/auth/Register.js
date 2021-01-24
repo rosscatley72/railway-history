@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
 import UserPool from "./UserPool";
