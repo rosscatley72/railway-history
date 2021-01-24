@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "./components/Map.js";
+import Map from "./Map.js";
 
 const Explorer = () => {
   return <Map />;
