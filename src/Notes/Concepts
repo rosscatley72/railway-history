@@ -1,0 +1,32 @@
+CONCEPTS
+========
+Routes
+Junctions
+Overlays
+Time Slider
+
+A route is a raiway line with a defined startpoint and endpoint that routes via muliple routepoints.
+Generally a route will be have common characteristics eg ownership - date of opening.
+A subroute may be required if for example a line was opened and closed in stages (eg diffent dates)
+or has seen a diversion at a point in time.
+A (sub) route will start and end either at a terminus station, or a junction.
+
+A (sub) route will have at least one status and a date that status occured, and one or more opening dates (more than one if a line was closed and reopened)
+and may have one or more closing date, along with at least one owner and at least one operator and a date that
+each owner and operator started owning/operating the (sub) route.
+
+Statuses
+
+1. Open
+2. Closed
+3. Open to Goods Traffic
+4. Mothballed
+
+A junction is a join between different routes OR a crossing between tracks on a route.
+
+Overlays include: Stations, Goods Depots, Signal Boxes, Viaducts, Engine Sheds etc - groups of railway types with common characteristics at a geographic location (MVP = stations only)
+
+Routes and Overlays can have assets attached to them that include - photos, videos, websites, Facebook groups, books.
+Where applicable, assets can have dates attached to them, to allow relevant assets to be shown against the time slider.
+
+The time slider sets a point in time on the map to show how the railways looked at that point in time.

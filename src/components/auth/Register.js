@@ -108,9 +108,8 @@ const Register = () => {
                         message: "Password must be at least 8 characters",
                       },
                       pattern: {
-                        value: "(?=.*d)",
-                        message:
-                          "Password must contain 1 upper, 1 lower, 1 number and 1 special char",
+                        value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\W]).{1,}$/,
+                        message: "Password must conform to policy below",
                       },
                     })}
                   />
