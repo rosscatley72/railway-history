@@ -4,11 +4,15 @@ export const TextPageStyle = styled.div.attrs(() => ({
   className: "jumbotron",
   style: { backgroundSize: "cover", marginBottom: "0", minHeight: "80vh" },
 }))`
+{
+    background-size: cover;
+}
   .text-panel {
     background-color: rgba(255, 255, 255, 0.8);
     color: #000f89;
     height: auto;
     padding: 50px;
+    border-radius:30px;
   }
 
 .element-holder{
@@ -43,11 +47,13 @@ export const Title = styled.div.attrs(() => ({
 `;
 
 export const FormElement = styled.div`
+{
+    margin-bottom:10px;
+}
   label {
     font-weight: bold;
-    margin: 10px;
-    margin-bottom:0;
-    margin-left:0;
+    margin: 0;
+    margin-top:5px;
     width: 250px;
     text-align:left;
   }
@@ -58,6 +64,27 @@ export const FormElement = styled.div`
     width:258px;
     
   }
+
+  .instruction{
+      font-size:small;
+      color:#ddd;
+      margin:0;
+text-align:left;
+
+  }
+
+  .error{
+      font-size:small;
+      color:#f00;
+      margin:0;
+      text-align:left;
+      margin-left:5px;
+  }
+
+.error-container{
+    display:inline-block;
+    vertical-align:top;
+}
 
 `;
 
