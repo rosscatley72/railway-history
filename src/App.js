@@ -7,6 +7,7 @@ import Explorer from "./components/Explorer";
 import Login from "./components/Login";
 import NoMatch from "./components/NoMatch";
 import Register from "./components/auth/Register";
+import ConfirmVerification from "./components/auth/ConfirmVerification";
 
 const App = () => {
   return (
@@ -18,6 +19,11 @@ const App = () => {
           <Route exact path="/explorer" component={Explorer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route
+            exact
+            path="/confirm-verification"
+            component={ConfirmVerification}
+          />
           <Route component={NoMatch} />
         </Switch>
         <Footer />

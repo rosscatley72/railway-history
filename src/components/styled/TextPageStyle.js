@@ -47,45 +47,43 @@ export const Title = styled.div.attrs(() => ({
 `;
 
 export const FormElement = styled.div`
-{
-    margin-bottom:10px;
-}
+   {
+    margin-bottom: 10px;
+  }
   label {
     font-weight: bold;
     margin: 0;
-    margin-top:5px;
+    margin-top: 5px;
     width: 250px;
-    text-align:left;
+    text-align: left;
   }
   input {
-    background-color: #b7b4ad
+    background-color: #b7b4ad;
     margin: 10px;
-    margin-top:0;
-    width:258px;
-    
+    margin-top: 0;
+    width: 258px;
   }
 
-  .instruction{
-      font-size:small;
-      color:#ddd;
-      margin:0;
-text-align:left;
-
+  .instruction {
+    font-size: small;
+    color: #ddd;
+    margin: 0;
+    text-align: left;
+    width: 258px;
   }
 
-  .error{
-      font-size:small;
-      color:#f00;
-      margin:0;
-      text-align:left;
-      margin-left:5px;
+  .error {
+    font-size: small;
+    color: #f00;
+    margin: 0;
+    text-align: left;
+    margin-left: 5px;
   }
 
-.error-container{
-    display:inline-block;
-    vertical-align:top;
-}
-
+  .error-container {
+    display: inline-block;
+    vertical-align: top;
+  }
 `;
 
 export const StyledButton = styled.button.attrs(() => ({

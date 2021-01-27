@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-//import { CognitoUserAttribute } from "amazon-cognito-identity-js";
-
-//import UserPool from "./UserPool";
+import { Auth } from "aws-amplify";
 import Container from "react-bootstrap/Container";
 import {
   TextPageStyle,
@@ -11,49 +9,78 @@ import {
   StyledButton,
 } from "../styled/TextPageStyle";
 import RCH from "../../images/rch.jpg";
+import { useSpring, animated } from "react-spring";
 
-const Register = () => {
+const Register = (props) => {
   const { register, handleSubmit, errors } = useForm();
+  const [apiInfo, setApiInfo] = useState({});
 
   const borderStyle = {
     outlineWidth: "0",
     borderStyle: "solid",
     borderWidth: "2px",
+    overflow: "hidden",
   };
 
-  const emailBorderStyle = {
+  const emailBorderStyle = useSpring({
     ...borderStyle,
-    borderColor: errors.email ? "red" : "#000f89",
-  };
+    borderColor: errors.email ? "#ff0000" : "#000f89",
+  });
 
-  const passwordBorderStyle = {
+  const emailErrorStyle = useSpring({
+    height: errors.email ? "20px" : "0px",
+  });
+
+  const passwordBorderStyle = useSpring({
     ...borderStyle,
-    borderColor: errors.password ? "red" : "#000f89",
-  };
+    borderColor: errors.password ? "#ff0000" : "#000f89",
+  });
 
-  const confirmPasswordBorderStyle = {
+  const passwordErrorStyle = useSpring({
+    height: errors.password ? "20px" : "0px",
+  });
+
+  const confirmPasswordBorderStyle = useSpring({
     ...borderStyle,
     borderColor: errors.confirmPassword ? "red" : "#000f89",
+  });
+
+  const confirmPasswordErrorStyle = useSpring({
+    height: errors.confirmPassword ? "20px" : "0px",
+  });
+
+  const apiInfoStyle = useSpring({
+    color: apiInfo.type === 0 ? "#0000ff" : "#ff0000",
+    height: apiInfo && apiInfo.message ? "25px" : "0px", //* temporary line until bug with animation can be located */
+    margin: "0",
+    overflow: "hidden",
+  });
+
+  const handleChange = (event) => {
+    setApiInfo({});
   };
 
-  const onSubmit = (data) => {
-    //event.preventDefault();
+  const onSubmit = async (data) => {
+    const { email, password } = data;
 
-    //This is where the validation code needs to sit.....
-
-    //const attributeList = [];
-    //const dataEmail = { Name: "email", Value: email };
-    //const attributeEmail = new CognitoUserAttribute(dataEmail);
-    //console.log(`Attribute E-Mail: ${attributeEmail}`);
-    //attributeList.push(attributeEmail);
-    //"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-    console.log(data);
-    /* UserPool.signUp(email, password, attributeList, null, (err, data) => {
-      if (err) {
-        console.error(err);
-      }
-      console.log(data);
-    });*/
+    try {
+      setApiInfo({ message: "Registering User", type: 0 });
+      const signUpResponse = await Auth.signUp({
+        username: email,
+        password,
+        attributes: { email: email },
+      });
+      console.log(signUpResponse);
+      props.history.push("/confirm-verification");
+    } catch (error) {
+      let err = null;
+      !error.message
+        ? (err = { message: error, type: 1 })
+        : (err = { ...error, type: 1 });
+      setApiInfo(err);
+      console.log("After API Call (on error): " + apiInfo);
+      //event.preventDefault();
+    }
   };
 
   return (
@@ -74,11 +101,12 @@ const Register = () => {
               <FormElement>
                 <label htmlFor="email">E-Mail:</label>
                 <div className="error-container">
-                  <input
+                  <animated.input
                     name="email"
                     type="text"
                     style={emailBorderStyle}
                     placeholder="E-mail"
+                    onChange={handleChange}
                     ref={register({
                       required: "E-Mail is required",
                       pattern: {
@@ -87,20 +115,21 @@ const Register = () => {
                       },
                     })}
                   />
-                  <p className="error">
+                  <animated.p className="error" style={emailErrorStyle}>
                     {errors.email && errors.email.message}
-                  </p>
+                  </animated.p>
                 </div>
               </FormElement>
               <FormElement>
                 <label htmlFor="password">Password:</label>
                 <div className="error-container">
-                  <input
+                  <animated.input
                     id="password"
                     name="password"
                     type="password"
                     style={passwordBorderStyle}
                     placeholder="Password"
+                    onChange={handleChange}
                     ref={register({
                       required: "Password is required",
                       minLength: {
@@ -113,23 +142,27 @@ const Register = () => {
                       },
                     })}
                   />
-                  <p className="error">
+                  <animated.p className="error" style={passwordErrorStyle}>
                     {errors.password && errors.password.message}
+                  </animated.p>{" "}
+                  <p className="instruction">
+                    {`Password must be at least 8 chars, with 1 upper, 1 lower, 1
+                  number and 1 special.`}
                   </p>
                 </div>
-                <p className="instruction">
-                  {`Password must be at least 8 chars, with 1 upper, 1 lower, 1
-                  number and 1 special (@$!%*?&)`}
-                </p>
               </FormElement>
               <FormElement>
                 <label htmlFor="confirmPassword">Confirm Password:</label>
-                <div className="error-container">
-                  <input
+                <div
+                  className="error-container"
+                  style={confirmPasswordErrorStyle}
+                >
+                  <animated.input
                     name="confirmPassword"
                     type="password"
                     style={confirmPasswordBorderStyle}
                     placeholder="Confirm Password"
+                    onChange={handleChange}
                     ref={register({
                       required: "Confirm password is required",
                       minLength: {
@@ -144,11 +177,17 @@ const Register = () => {
                       },
                     })}
                   />
-                  <p className="error">
+                  <animated.p
+                    className="error"
+                    style={confirmPasswordErrorStyle}
+                  >
                     {errors.confirmPassword && errors.confirmPassword.message}
-                  </p>
+                  </animated.p>
                 </div>
               </FormElement>
+              <animated.p className="error" style={apiInfoStyle}>
+                {apiInfo && apiInfo.message}
+              </animated.p>
               <StyledButton type="submit">Register</StyledButton>
             </div>
           </form>
