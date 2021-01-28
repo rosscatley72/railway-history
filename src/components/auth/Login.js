@@ -8,10 +8,10 @@ import {
   FormElement,
   StyledButton,
 } from "../styled/TextPageStyle";
-import RCH from "../../images/rch.jpg";
+import SB from "../../images/sb.jpg";
 import { useSpring, animated } from "react-spring";
 
-const Register = (props) => {
+const Login = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const [apiInfo, setApiInfo] = useState({});
 
@@ -40,15 +40,6 @@ const Register = (props) => {
     height: errors.password ? "20px" : "0px",
   });
 
-  const confirmPasswordBorderStyle = useSpring({
-    ...borderStyle,
-    borderColor: errors.confirmPassword ? "red" : "#000f89",
-  });
-
-  const confirmPasswordErrorStyle = useSpring({
-    height: errors.confirmPassword ? "20px" : "0px",
-  });
-
   const apiInfoStyle = useSpring({
     color: apiInfo.type === 0 ? "#0000ff" : "#ff0000",
     height: apiInfo && apiInfo.message ? "25px" : "0px",
@@ -64,38 +55,30 @@ const Register = (props) => {
     const { email, password } = data;
 
     try {
-      setApiInfo({ message: "Registering User", type: 0 });
-      const signUpResponse = await Auth.signUp({
+      setApiInfo({ message: "Logging In", type: 0 });
+      /*const signUpResponse = await Auth.signUp({
         username: email,
         password,
         attributes: { email: email },
-      });
-      console.log(signUpResponse);
-      props.history.push("/confirm-verification");
+      });*/
+      //props.history.push("/confirm-verification");
     } catch (error) {
       let err = null;
       !error.message
         ? (err = { message: error, type: 1 })
         : (err = { ...error, type: 1 });
       setApiInfo(err);
-      console.log("After API Call (on error): " + apiInfo);
       //event.preventDefault();
     }
   };
 
   return (
-    <TextPageStyle style={{ backgroundImage: `url(${RCH})` }}>
+    <TextPageStyle
+      style={{ backgroundImage: `url(${SB})`, backgroundPosition: "50% 50%" }}
+    >
       <Container>
         <div className="text-panel">
-          <Title>Register for British Railway History</Title>
-          <p className="lead">
-            Registering for British Railway History allows you to add to our
-            project. If you have a favourite route that's not already been
-            added, why not put yourself forward to create it and make sure its
-            never forgotten. You can add the route on the map, add photos, video
-            and even links to books, websites or any other resources that will
-            give everyone else loads of information about its history.
-          </p>
+          <Title>Login</Title>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="element-holder">
               <FormElement>
@@ -132,63 +115,18 @@ const Register = (props) => {
                     onChange={handleChange}
                     ref={register({
                       required: "Password is required",
-                      minLength: {
-                        value: 8,
-                        message: "Password must be at least 8 characters",
-                      },
-                      pattern: {
-                        value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\W]).{1,}$/,
-                        message: "Password must conform to policy below",
-                      },
                     })}
                   />
                   <animated.p className="error" style={passwordErrorStyle}>
                     {errors.password && errors.password.message}
                   </animated.p>{" "}
-                  <p className="instruction">
-                    {`Password must be at least 8 chars, with 1 upper, 1 lower, 1
-                  number and 1 special.`}
-                  </p>
                 </div>
               </FormElement>
-              <FormElement>
-                <label htmlFor="confirmPassword">Confirm Password:</label>
-                <div
-                  className="error-container"
-                  style={confirmPasswordErrorStyle}
-                >
-                  <animated.input
-                    name="confirmPassword"
-                    type="password"
-                    style={confirmPasswordBorderStyle}
-                    placeholder="Confirm Password"
-                    onChange={handleChange}
-                    ref={register({
-                      required: "Confirm password is required",
-                      minLength: {
-                        value: 8,
-                        message: "Password must be at least 8 characters",
-                      },
-                      validate: {
-                        matchPassword: (value) =>
-                          value === document.getElementById("password").value
-                            ? undefined
-                            : "Passwords must match",
-                      },
-                    })}
-                  />
-                  <animated.p
-                    className="error"
-                    style={confirmPasswordErrorStyle}
-                  >
-                    {errors.confirmPassword && errors.confirmPassword.message}
-                  </animated.p>
-                </div>
-              </FormElement>
+
               <animated.p className="error" style={apiInfoStyle}>
                 {apiInfo && apiInfo.message}
               </animated.p>
-              <StyledButton type="submit">Register</StyledButton>
+              <StyledButton type="submit">Login</StyledButton>
             </div>
           </form>
         </div>
@@ -197,4 +135,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default Login;

@@ -58,7 +58,7 @@ export const FormElement = styled.div`
     text-align: left;
   }
   input {
-    background-color: #b7b4ad;
+    background-color: #cccccc;
     margin: 10px;
     margin-top: 0;
     width: 258px;

@@ -4,7 +4,7 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Explorer from "./components/Explorer";
-import Login from "./components/Login";
+import Login from "./components/auth/Login";
 import NoMatch from "./components/NoMatch";
 import Register from "./components/auth/Register";
 import ConfirmVerification from "./components/auth/ConfirmVerification";
