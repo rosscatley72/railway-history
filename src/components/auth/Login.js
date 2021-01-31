@@ -56,12 +56,11 @@ const Login = (props) => {
 
     try {
       setApiInfo({ message: "Logging In", type: 0 });
-      /*const signUpResponse = await Auth.signUp({
-        username: email,
-        password,
-        attributes: { email: email },
-      });*/
-      //props.history.push("/confirm-verification");
+      const user = await Auth.signIn(email, password);
+      console.log(user);
+      props.auth.setUser(user);
+      props.auth.setAuthStatus(true);
+      props.history.push("/");
     } catch (error) {
       let err = null;
       !error.message

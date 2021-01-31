@@ -62,6 +62,7 @@ export const FormElement = styled.div`
     margin: 10px;
     margin-top: 0;
     width: 258px;
+    padding-bottom: 0;
   }
 
   .instruction {
@@ -70,6 +71,7 @@ export const FormElement = styled.div`
     margin: 0;
     text-align: left;
     width: 258px;
+    padding-left: 14px;
   }
 
   .error {
@@ -78,6 +80,8 @@ export const FormElement = styled.div`
     margin: 0;
     text-align: left;
     margin-left: 5px;
+    padding-left: 10px;
+    padding-top: 0;
   }
 
   .error-container {

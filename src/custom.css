@@ -1,7 +1,29 @@
+/* Navigation */
+
+.cust-navbar,
+.navbar,
+.navbar-brand,
+.nav-link,
+footer {
+  background-color: #000f89;
+  color: #b7b4ad !important;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+}
+
+.cust-btn {
+  background-color: #b7b4ad;
+  color: #000f89;
+}
+.cust-btn:hover {
+  background-color: #000f89;
+  color: #b7b4ad;
+}
+
 /* Footer */
 
 footer {
-  background-color: #000f89;
-  color: #b7b4ad;
   padding: 30px;
 }

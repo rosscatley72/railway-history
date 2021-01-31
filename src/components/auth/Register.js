@@ -70,7 +70,6 @@ const Register = (props) => {
         password,
         attributes: { email: email },
       });
-      console.log(signUpResponse);
       props.history.push("/confirm-verification");
     } catch (error) {
       let err = null;
@@ -78,8 +77,6 @@ const Register = (props) => {
         ? (err = { message: error, type: 1 })
         : (err = { ...error, type: 1 });
       setApiInfo(err);
-      console.log("After API Call (on error): " + apiInfo);
-      //event.preventDefault();
     }
   };
 

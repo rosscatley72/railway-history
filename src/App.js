@@ -1,4 +1,4 @@
-import { React, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
@@ -9,21 +9,53 @@ import NoMatch from "./components/NoMatch";
 import Register from "./components/auth/Register";
 import ConfirmVerification from "./components/auth/ConfirmVerification";
 
+import "./custom.css";
+
 const App = () => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setAuthStatus] = useState(false);
+
+  const authProps = {
+    isAuthenticated: isAuthenticated,
+    user: user,
+    setAuthStatus: setAuthStatus,
+    setUser: setUser,
+  };
+
   return (
     <Fragment>
-      <NavigationBar />
       <Router>
+        <NavigationBar auth={authProps} />
+
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/explorer" component={Explorer} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Route
+            exact
+            path="/"
+            render={(props) => <Home {...props} auth={authProps} />}
+          />
+          <Route
+            exact
+            path="/explorer"
+            render={(props) => <Explorer {...props} auth={authProps} />}
+          />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Login {...props} auth={authProps} />}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => <Register {...props} auth={authProps} />}
+          />
           <Route
             exact
             path="/confirm-verification"
-            component={ConfirmVerification}
+            render={(props) => (
+              <ConfirmVerification {...props} auth={authProps} />
+            )}
           />
+
           <Route component={NoMatch} />
         </Switch>
         <Footer />

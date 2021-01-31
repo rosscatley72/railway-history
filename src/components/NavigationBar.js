@@ -1,45 +1,48 @@
-import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import styled from "styled-components";
+import React, { Fragment } from "react";
+import {
+  Nav,
+  Navbar,
+  NavDropdown,
+  Button,
+  FormControl,
+  Form,
+} from "react-bootstrap";
 
-const Styles = styled.div`
-  .navbar {
-    background-color: #000f89;
-  }
-
-  .navbar-brand,
-  .navbar-nav .nav-link {
-    color: #b7b4ad;
-
-    &:hover {
-      color: white;
-    }
-  }
-`;
-
-const NavigationBar = () => (
-  <Styles>
-    <Navbar expand="lg">
+const NavigationBar = (props) => {
+  console.log(props);
+  return (
+    <Navbar expand="lg" className="cust-navbar">
       <Navbar.Brand href="/">British Railway History</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <Nav.Item>
-            <Nav.Link href="/">Home</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/explorer">Explore</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/login">Login</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/register">Register</Nav.Link>
-          </Nav.Item>
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/explorer">Explore</Nav.Link>
         </Nav>
+
+        {props.auth.isAuthenticated && props.auth.user && (
+          <Fragment>
+            <p classname="m-0 px-2">{props.auth.user.username}</p>
+
+            <Button href="/login" className="mx-1 cust-btn">
+              Logout
+            </Button>
+          </Fragment>
+        )}
+
+        {!props.auth.isAuthenticated && (
+          <Fragment>
+            <Button href="/login" className="mx-1 cust-btn">
+              Login
+            </Button>
+            <Button href="/register" className="mx-1 cust-btn">
+              Register
+            </Button>
+          </Fragment>
+        )}
       </Navbar.Collapse>
     </Navbar>
-  </Styles>
-);
+  );
+};
 
 export default NavigationBar;
