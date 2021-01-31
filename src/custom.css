@@ -18,8 +18,8 @@ footer {
   color: #000f89;
 }
 .cust-btn:hover {
-  background-color: #000f89;
-  color: #b7b4ad;
+  background-color: rgba(128, 16, 38, 1);
+  color: #f9f1de;
 }
 
 /* Footer */

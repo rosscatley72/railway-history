@@ -26,3 +26,6 @@ Background tasks
 
 1. Look at font sizes in mobile mode and add adaptive styling
 2. Tidy up location of error messages under input boxes on registration page
+3. Grey out login button whilst waiting for login to prevent double pressing
+4. Handle login errors with red bar under nav rather than console.log
+5. Add Forgot and Change password functions (see Cognito tutorial part III for details)
