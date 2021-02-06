@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
@@ -6,19 +6,19 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Explorer from "./components/Explorer";
+import Edit from "./components/Edit";
 import Login from "./components/auth/Login";
 import NoMatch from "./components/NoMatch";
 import Register from "./components/auth/Register";
 import ConfirmVerification from "./components/auth/ConfirmVerification";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "./custom.css";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthStatus] = useState(false);
-  const [isAuthenticating, setAuthenticating] = useState(true);
+  const [isAuthenticating, setAuthenticating] = useState(false);
 
   const authProps = {
     isAuthenticated: isAuthenticated,
@@ -28,7 +28,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    //This the equivalent of the componentdidmount functionality for hooks
     async function setSessionStatus() {
       try {
         const session = await Auth.currentSession();
@@ -45,10 +44,9 @@ const App = () => {
 
   return (
     !isAuthenticating && (
-      <Fragment>
+      <router>
+        <NavigationBar auth={authProps} />
         <Router>
-          <NavigationBar auth={authProps} />
-
           <Switch>
             <Route
               exact
@@ -57,12 +55,13 @@ const App = () => {
             />
             <Route
               exact
-              path="/explorer"
-              render={(props) => <Explorer {...props} auth={authProps} />}
+              path="/editor"
+              render={(props) => <Edit {...props} auth={authProps} />}
             />
+
             <Route
               exact
-              path="/editor"
+              path="/explorer"
               render={(props) => <Explorer {...props} auth={authProps} />}
             />
             <Route
@@ -87,7 +86,7 @@ const App = () => {
           </Switch>
           <Footer />
         </Router>
-      </Fragment>
+      </router>
     )
   );
 };

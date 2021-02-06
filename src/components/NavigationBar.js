@@ -1,12 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  Nav,
-  Navbar,
-  NavDropdown,
-  Button,
-  FormControl,
-  Form,
-} from "react-bootstrap";
+import { Nav, Navbar, Button } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Auth } from "aws-amplify";
@@ -31,7 +24,9 @@ const NavigationBar = (props) => {
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/explorer">Explore</Nav.Link>
-          {isAuthenticated && <Nav.Link href="/editor">Edit</Nav.Link>}
+          {props.auth.isAuthenticated && (
+            <Nav.Link href="/editor">Edit</Nav.Link>
+          )}
         </Nav>
 
         {props.auth.isAuthenticated && props.auth.user && (

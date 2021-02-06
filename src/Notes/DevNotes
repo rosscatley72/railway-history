@@ -4,13 +4,22 @@ Next steps
 
 Complete registration system:
 
-DONE Step 2 - Build login page
 Step 3 - Look at how to build authorisation capabilty to enable route editing per user
-
+1. Pass icon back to Sidebar
+2. Graft side bar onto map
+3. Sort design of editing page
 
 Editing
 
 Step 1 - Design Edit UI
+
+Add Route - Info panel on right (route name, opening date, status history), first click start of line, second click end of line, 
+MVP only add route with terminus at both ends - day 1 click onto existing line and add junction
+Display line.
+Clicking on line adds a routepoint
+Routepoint can be dragged on map, to move route into position.
+Clicking on routepoint opens info window - empty day 1 - split into subroutes, add station, add junction next phase
+
 
 
 
@@ -29,3 +38,5 @@ Background tasks
 3. Grey out login button whilst waiting for login to prevent double pressing
 4. Handle login errors with red bar under nav rather than console.log
 5. Add Forgot and Change password functions (see Cognito tutorial part III for details)
+6. Login page - return to page that login button was pressed from
+

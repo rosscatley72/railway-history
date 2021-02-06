@@ -1,5 +1,10 @@
 /* Navigation */
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .cust-navbar,
 .navbar,
 .navbar-brand,
@@ -26,4 +31,45 @@ footer {
 
 footer {
   padding: 30px;
+}
+
+.sidebar {
+  height: 100%;
+  width: 250px;
+  background-color: #000f89;
+}
+
+.sidebar-list {
+  height: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.sidebar-list .sidebar-row:hover {
+  cursor: pointer;
+  background-color: #293846;
+}
+
+.sidebar-list .sidebar-row {
+  height: 60px;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.sidebar-row #icon {
+  flex: 30%;
+  display: grid;
+  place-items: center;
+}
+
+.sidebar-row #title {
+  flex: 70%;
 }
