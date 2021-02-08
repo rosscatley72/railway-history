@@ -11,6 +11,7 @@ import Login from "./components/auth/Login";
 import NoMatch from "./components/NoMatch";
 import Register from "./components/auth/Register";
 import ConfirmVerification from "./components/auth/ConfirmVerification";
+import GlobalStateProvider from "./store/GlobalStateProvider";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom.css";
@@ -30,7 +31,7 @@ const App = () => {
   useEffect(() => {
     async function setSessionStatus() {
       try {
-        const session = await Auth.currentSession();
+        //const session = await Auth.currentSession();
         setAuthStatus(true);
         const user = await Auth.currentAuthenticatedUser();
         setUser(user);
@@ -44,7 +45,7 @@ const App = () => {
 
   return (
     !isAuthenticating && (
-      <router>
+      <GlobalStateProvider>
         <NavigationBar auth={authProps} />
         <Router>
           <Switch>
@@ -86,7 +87,7 @@ const App = () => {
           </Switch>
           <Footer />
         </Router>
-      </router>
+      </GlobalStateProvider>
     )
   );
 };

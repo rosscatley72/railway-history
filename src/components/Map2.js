@@ -2,16 +2,17 @@ import { React, useContext } from "react";
 import {
   GoogleMap,
   useLoadScript,
-  Marker,
-  InfoWindow,
+  //Marker,
+  //InfoWindow,
 } from "@react-google-maps/api";
 import { mapStyles } from "./MapStyles";
 import Context from "../store/context";
 
-const Map2 = () => {
+const Map2 = (props) => {
   const { globalState, globalDispatch } = useContext(Context);
+
   const mapContainerStyle = {
-    width: "60vw",
+    width: props.width,
     height: "80vh",
   };
   const centre = { lat: 51.999889, lng: -0.98807 };

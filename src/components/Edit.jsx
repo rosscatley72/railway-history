@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { animated, useSpring } from "react-spring"
 import Sidebar from "./Sidebar"
 import Map  from './Map2'
-//import {AddRouteStartPoint} from "./AddRoute"
+import { AddRoute } from './AddRoute'
+import Context from "../store/context"
 
 const Edit = () => {
 
-    const [editStep, setEditStep] = useState(1)
+    const {globalState, globalDispatch} = useContext(Context)
 
-    const editProps = {
-        editStep: editStep,
-        setEditStep : setEditStep
-    }
+    const editBarStyle = useSpring({
+        width: globalState.addRoute.active ? "20vw" : "0vw",
+        backgroundColor:"#b7b4ad",
+        overflow:"hidden"
+    })
     
 
     return (
         <div style={{display:"flex",flexdirection:"row"}}>
-            <div className="edit-bar" style={{}}><Sidebar /></div>
-            <div style={{width:"60vw",display:"block",overflow:"hidden", float:"left"}}><Map edit={editProps} width="60vw" /></div>
-            <div style={{width:"10vw"}}></div>
+            <div style={{width:"9vw"}}><Sidebar /></div>
+            <div style={{width:"70vw",display:"block",overflow:"hidden", float:"left"}}><Map width="70vw" /></div>
+            <animated.div style={editBarStyle}>{globalState.addRoute.active && <AddRoute />}</animated.div>
         
         </div>
     )

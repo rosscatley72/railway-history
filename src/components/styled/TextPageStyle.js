@@ -106,3 +106,25 @@ export const StyledButton = styled.button.attrs(() => ({
     }
   }
 `;
+
+export const StyledMiniButton = styled.button.attrs(() => ({
+  className: "btn",
+}))`
+   {
+    background-color: #000f89;
+    color: #b7b4ad;
+    margin: 10px;
+    padding: 10px;
+    width: 100px;
+
+    &:hover {
+      color: #f9f1de;
+      background-color: rgba(128, 16, 38, 1);
+    }
+
+    &:disabled {
+      color: #aaaaaa;
+      background-color: #888888;
+    }
+  }
+`;

@@ -1,0 +1,21 @@
+
+
+editing         //If there is any editing taking place this is true, otherwise false
+editAction      //The edit type taking place if any:
+    ADDROUTE    - A new route is being added
+
+addRoute.active (true/false)
+addRoute.status
+    NOTACTIVE (id:0)
+    ADDINGSTARTPOINT (id: 1)
+    ADDINGENDPOINT (id: 2)
+    COMPLETINGDETAILS (id: 3)
+addRoute.startRoutePoint.lat
+addRoute.startRoutePoint.lng
+addRoute.endRoutePoint.lat
+addRoute.endRoutePoint.lng
+addRoute.name
+addRoute.status(array of object id,status,date)
+addRoute.owner(array of owner id,status,date)
+
+editRoutePoints.points (array of id, lat, lng, type)  type = JUNCTION, START, END, NORMAL

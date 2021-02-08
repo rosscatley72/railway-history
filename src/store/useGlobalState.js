@@ -1,55 +1,84 @@
 import { useReducer } from "react";
 
 const reducer = (state, action) => {
+  console.log(
+    `DISPATCH CALLED......${JSON.stringify(state)} ${JSON.stringify(
+      action.type
+    )}`
+  );
   switch (action.type) {
-    case "LOGIN":
-      return { isLoggedIn: true };
-    case "LOGOUT":
-      return { isLoggedIn: false };
-    case "MAPCLICK":
-      console.log(action);
-      console.log(
-        `Lat: ${action.payload.latLng.lat()}, Lng: ${action.payload.latLng.lng()}`
-      );
-      return {
-        //User has clicked on add route, hasn't yet clicked on map
-        //Load info panel
-        //Get an ID for this route
-      };
-    case "ADDROUTEENDPOINT":
-      return {
-        //User has clicked on startpoint for route
-        //Record start point coordinates
-        //Place route start marker on map
-      };
-
     case "ADDROUTE":
-      //User has added end point of new route.
+      if (state.editing === true) return state;
+      return {
+        ...state,
+        editing: true,
+        editAction: "ADDROUTE",
+        addRoute: { active: true, status: { name: "ADDINGSTARTPOINT", id: 1 } },
+      };
 
-      //Record end point coordinates
-      //Add polyline between start and end point
-      //Move state to EditRoute - this allows user to add and move routepoints and create points of interest
+    case "MAPCLICK":
+      switch (state.addRoute.status.name) {
+        case "ADDINGSTARTPOINT":
+          console.log("Creating state for start route point");
+          console.log(`Payload: ${action.payload}`);
+          return (
+            //User has clicked on add route, hasn't yet clicked on map
+            //Load info panel
+            //Get an ID for this route
+            {
+              ...state,
+              addRoute: {
+                ...state.addRoute,
+                status: { name: "ADDINGENDPOINT", id: 2 },
+                startRoutePoint: {
+                  lat: action.payload.latLng.lat(),
+                  lng: action.payload.latLng.lng(),
+                },
+              },
+            }
+          );
+        case "ADDINGENDPOINT":
+          console.log("ADDINGENDPOINT");
+          console.log(state);
+          return {
+            ...state,
+            addRoute: {
+              ...state.addRoute,
+              status: { name: "COMPLETINGDETAILS", id: 3 },
+              endRoutePoint: {
+                lat: action.payload.latLng.lat(),
+                lng: action.payload.latLng.lng(),
+              },
+            },
+          };
 
-      return {};
+        default:
+          return state;
+      }
 
-    case "EDITROUTE":
-      //User has either selected to edit an existing route or is adding a new route and
-
-      return {};
-
-    case "UPDATEROUTE":
-      return {};
-    default: {
+    case "CANCEL":
+      console.log("CANCEL");
+      switch (state.editAction) {
+        case "ADDROUTE":
+          return {
+            ...state,
+            editing: false,
+            editAction: "NONE",
+            addRoute: {
+              active: false,
+              status: { name: "NOTACTIVE", id: 0 },
+            },
+          };
+      }
+    default:
       return state;
-    }
   }
 };
 
 const useGlobalState = () => {
   const [globalState, globalDispatch] = useReducer(reducer, {
-    isLoggedIn: false,
+    addRoute: {},
   });
-
   return { globalState, globalDispatch };
 };
 
