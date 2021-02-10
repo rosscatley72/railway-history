@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useSpring, animated } from "react-spring";
 import Context from "../store/context";
@@ -67,6 +67,8 @@ export const AddRoute = () => {
       // VALIDATION OF THE ADD ROUTE FORM GOES HERE AND SUBMIT TO DATABASE/API GATEWAY
       //NEED TO CHECK START AND FINISH POINTS HAVE BEEN ADDED
       // AS WELL AS INITIAL OPENING DATE, AND ROUTE NAME
+
+      globalDispatch({ type: "FINISHADDROUTE" });
 
       console.log(name);
     } catch (error) {

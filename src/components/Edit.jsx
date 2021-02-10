@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { animated, useSpring } from "react-spring"
 import Sidebar from "./Sidebar"
 import Map  from './Map2'

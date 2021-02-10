@@ -1,13 +1,16 @@
 import { useReducer } from "react";
+import { ChangePolylineClickableStatus } from "../components/Map2";
+import { RouteData } from "../components/RouteData";
 
 const reducer = (state, action) => {
+  let newStyles = [];
   console.log(
     `DISPATCH CALLED......${JSON.stringify(state)} ${JSON.stringify(
       action.type
     )}`
   );
   switch (action.type) {
-    case "ADDROUTE":
+    case "SIDEBARADDROUTE":
       if (state.editing === true) return state;
       return {
         ...state,
@@ -16,30 +19,34 @@ const reducer = (state, action) => {
         addRoute: { active: true, status: { name: "ADDINGSTARTPOINT", id: 1 } },
       };
 
+    case "SIDEBAREDITROUTE":
+      if (state.editing === true) return state;
+      newStyles = ChangePolylineClickableStatus(state.routes.styles, true);
+      return {
+        ...state,
+        editing: true,
+        editAction: "EDITROUTE",
+        editRoute: { active: true, status: { name: "SELECTINGROUTE", id: 1 } },
+        routes: { ...state.routes, styles: newStyles },
+      };
+
     case "MAPCLICK":
+      if (state.editing !== true) return state;
       switch (state.addRoute.status.name) {
         case "ADDINGSTARTPOINT":
-          console.log("Creating state for start route point");
-          console.log(`Payload: ${action.payload}`);
-          return (
-            //User has clicked on add route, hasn't yet clicked on map
-            //Load info panel
-            //Get an ID for this route
-            {
-              ...state,
-              addRoute: {
-                ...state.addRoute,
-                status: { name: "ADDINGENDPOINT", id: 2 },
-                startRoutePoint: {
-                  lat: action.payload.latLng.lat(),
-                  lng: action.payload.latLng.lng(),
-                },
+          return {
+            ...state,
+            addRoute: {
+              ...state.addRoute,
+              status: { name: "ADDINGENDPOINT", id: 2 },
+              startRoutePoint: {
+                lat: action.payload.latLng.lat(),
+                lng: action.payload.latLng.lng(),
               },
-            }
-          );
+            },
+          };
+
         case "ADDINGENDPOINT":
-          console.log("ADDINGENDPOINT");
-          console.log(state);
           return {
             ...state,
             addRoute: {
@@ -52,9 +59,47 @@ const reducer = (state, action) => {
             },
           };
 
+        case "FINISHADDROUTE":
+          return {
+            ...state,
+            editing: false,
+            editAction: "NONE",
+            addRoute: { active: false, status: { name: "NOTACTIVE", id: 0 } },
+          };
+
         default:
           return state;
       }
+
+    case "ADDROUTESTARTROUTEPOINTMOVED":
+      return {
+        ...state,
+        addRoute: { ...state.addRoute, startRoutePoint: action.payload.latLng },
+      };
+
+    case "ADDROUTEENDROUTEPOINTMOVED":
+      return {
+        ...state,
+        addRoute: { ...state.addRoute, endRoutePoint: action.payload.latLng },
+      };
+
+    case "UPDATEROUTESTYLES":
+      return {
+        ...state,
+        routes: { ...state.routes, styles: action.payload },
+      };
+
+    case "EDITROUTESELECTED":
+      console.log("EDITROUTESELECTED CALLED.......");
+      newStyles = ChangePolylineClickableStatus(state.routes.styles, false);
+      return {
+        ...state,
+        editRoute: {
+          ...state.editRoute,
+          status: { name: "EDITINGROUTE", id: 2 },
+        },
+        routes: { ...state.routes, styles: newStyles },
+      };
 
     case "CANCEL":
       console.log("CANCEL");
@@ -69,6 +114,8 @@ const reducer = (state, action) => {
               status: { name: "NOTACTIVE", id: 0 },
             },
           };
+        default:
+          return state;
       }
     default:
       return state;
@@ -76,8 +123,18 @@ const reducer = (state, action) => {
 };
 
 const useGlobalState = () => {
+  const polylineStyles = [];
+  RouteData.map((route) => {
+    polylineStyles.push({ strokeColor: "#ffff00", clickable: false });
+    return false;
+  });
+
   const [globalState, globalDispatch] = useReducer(reducer, {
-    addRoute: {},
+    editing: false,
+    editaction: "NONE",
+    addRoute: { active: false, status: { name: "NOTACTIVE", id: 0 } },
+    editRoute: { active: false },
+    routes: { data: RouteData, styles: polylineStyles },
   });
   return { globalState, globalDispatch };
 };

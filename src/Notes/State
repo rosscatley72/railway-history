@@ -6,16 +6,24 @@ editAction      //The edit type taking place if any:
 
 addRoute.active (true/false)
 addRoute.status
-    NOTACTIVE (id:0)
-    ADDINGSTARTPOINT (id: 1)
-    ADDINGENDPOINT (id: 2)
-    COMPLETINGDETAILS (id: 3)
-addRoute.startRoutePoint.lat
-addRoute.startRoutePoint.lng
-addRoute.endRoutePoint.lat
-addRoute.endRoutePoint.lng
+    {name: NOTACTIVE, id:0}
+    {name: ADDINGSTARTPOINT, id: 1}
+    {name: ADDINGENDPOINT, id: 2}
+    {name: COMPLETINGDETAILS, id: 3}
+addRoute.startRoutePoint.position {lat: , lng:}
+addRoute.endRoutePoint.position {lat: , lng: }
 addRoute.name
 addRoute.status(array of object id,status,date)
 addRoute.owner(array of owner id,status,date)
 
-editRoutePoints.points (array of id, lat, lng, type)  type = JUNCTION, START, END, NORMAL
+editRoute.status
+    {name: NOTACTIVE, id:0}
+    {name: SELECTINGROUTE, id:1}
+    {name: EDITINGROUTE, id:2}
+
+routes:{data:[{ routeId: ,name:,
+                displayStatus:displayStatus (0: routeId created, no data.  1: Data stored but route not available for display  2: Route complete and available in explorer)
+                routePoints:[{id:,position:{lat: ,lng: }}]}],
+        styles:[{----polyline styling elements----}]
+
+

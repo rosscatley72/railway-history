@@ -2,14 +2,50 @@
 
 Next steps
 
-Complete registration system:
-
-Step 3 - Look at how to build authorisation capabilty to enable route editing per user
-1. Pass icon back to Sidebar
-2. Graft side bar onto map
-3. Sort design of editing page
 
 Editing
+
+DONE "Add Route" button - call function in try which then resets status (this will change to edit route once that functionaltiy is built)
+Add Start marker on map on first render
+Add End marker on map and add Polyline between start and end markers
+Add Icon to Add Route on side bar
+Make sidebar icon only until clicked when it expands out
+Sort out colour on "hover" and "selected" of sidebar item
+Expand input form for Route Name to be centred
+Align Route name label to input box, reduce gap on errors
+Centre buttons at bottom of form
+Make panel slide in from the right
+
+End of MVP add route.
+=====================
+
+Display status - need to provide a "Save and come back later" function for new routes.  Display status is attached to the route object and will have the following states:
+
+0: Route ID has been created but no data has been saved
+1: Data has been saved on this route, but it is not in the public domain and only available for editing
+2: Data has been committed and can be displayed in the explorer
+
+Add Route (later):
+
+1. Status table
+2. Ownership table
+3. Click on line to show markers, click on marker to select as new junction
+
+
+
+Next
+====
+Edit Route
+
+(click on line to set each routepoint to a draggable marker) - after database
+
+Click polyline to create extra routepoint
+Drag polyline to move route
+Info window on click to offer "convert 
+
+
+
+
 
 Step 1 - Design Edit UI
 
