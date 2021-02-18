@@ -3,6 +3,7 @@
 editing         //If there is any editing taking place this is true, otherwise false
 editAction      //The edit type taking place if any:
     ADDROUTE    - A new route is being added
+    EDITROUTE   - A route is in edit mode
 
 addRoute.active (true/false)
 addRoute.status
@@ -21,9 +22,10 @@ editRoute.status
     {name: SELECTINGROUTE, id:1}
     {name: EDITINGROUTE, id:2}
 
-routes:{data:[{ routeId: ,name:,
-                displayStatus:displayStatus (0: routeId created, no data.  1: Data stored but route not available for display  2: Route complete and available in explorer)
-                routePoints:[{id:,position:{lat: ,lng: }}]}],
-        styles:[{----polyline styling elements----}]
+routes:[{ routeId:(int) ,name:(string),
+          displayStatus:displayStatus (0: routeId created, no data.  1: Data stored but route not available for display  2: Route complete and available in explorer)
+          routePoints:[{id:,position:{lat: ,lng: }}]
+          styles:{----polyline styling elements----}
+          }]
 
 

@@ -5,7 +5,11 @@ Next steps
 
 Editing
 
-DONE "Add Route" button - call function in try which then resets status (this will change to edit route once that functionaltiy is built)
+On "Edit Route" wait for click (already coded)
+Step 2 - on selected route, turn routepoints into markers, put drag markers between each additional marker
+Step 3 - if marker is dragged, record new position
+Step 4 - if additional marker is dragged, add new routepoint and record position - add two new additional markers at halfway points to routepoint before and after
+
 Add Start marker on map on first render
 Add End marker on map and add Polyline between start and end markers
 Add Icon to Add Route on side bar

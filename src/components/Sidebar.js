@@ -12,7 +12,6 @@ export function Sidebar() {
       : "blue",
   };
 
-  console.log(`SIDEBAR......${JSON.stringify(globalState)}`);
   const editRouteStyle = {
     backgroundColor: globalState.editRoute.active
       ? "rgba(128, 16, 38, 1)"

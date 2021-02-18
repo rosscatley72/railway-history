@@ -1,14 +1,9 @@
 import { useReducer } from "react";
-import { ChangePolylineClickableStatus } from "../components/Map2";
+import { ChangePolylineClickableStatus } from "../components/EditMap";
 import { RouteData } from "../components/RouteData";
 
 const reducer = (state, action) => {
-  let newStyles = [];
-  console.log(
-    `DISPATCH CALLED......${JSON.stringify(state)} ${JSON.stringify(
-      action.type
-    )}`
-  );
+  let newRoutes = [];
   switch (action.type) {
     case "SIDEBARADDROUTE":
       if (state.editing === true) return state;
@@ -21,13 +16,13 @@ const reducer = (state, action) => {
 
     case "SIDEBAREDITROUTE":
       if (state.editing === true) return state;
-      newStyles = ChangePolylineClickableStatus(state.routes.styles, true);
+      newRoutes = ChangePolylineClickableStatus(state.routes, true);
       return {
         ...state,
         editing: true,
         editAction: "EDITROUTE",
         editRoute: { active: true, status: { name: "SELECTINGROUTE", id: 1 } },
-        routes: { ...state.routes, styles: newStyles },
+        routes: newRoutes,
       };
 
     case "MAPCLICK":
@@ -90,19 +85,18 @@ const reducer = (state, action) => {
       };
 
     case "EDITROUTESELECTED":
-      console.log("EDITROUTESELECTED CALLED.......");
-      newStyles = ChangePolylineClickableStatus(state.routes.styles, false);
+      newRoutes = ChangePolylineClickableStatus(state.routes, false);
       return {
         ...state,
         editRoute: {
           ...state.editRoute,
           status: { name: "EDITINGROUTE", id: 2 },
+          routeId: action.payload.routeId,
         },
-        routes: { ...state.routes, styles: newStyles },
+        routes: newRoutes,
       };
 
     case "CANCEL":
-      console.log("CANCEL");
       switch (state.editAction) {
         case "ADDROUTE":
           return {
@@ -123,18 +117,22 @@ const reducer = (state, action) => {
 };
 
 const useGlobalState = () => {
-  const polylineStyles = [];
+  const newRouteData = [];
   RouteData.map((route) => {
-    polylineStyles.push({ strokeColor: "#ffff00", clickable: false });
+    newRouteData.push({
+      ...route,
+      styles: { strokeColor: "#ff8800", clickable: false },
+    });
     return false;
   });
 
   const [globalState, globalDispatch] = useReducer(reducer, {
     editing: false,
-    editaction: "NONE",
+    editAction: "NONE",
     addRoute: { active: false, status: { name: "NOTACTIVE", id: 0 } },
     editRoute: { active: false },
-    routes: { data: RouteData, styles: polylineStyles },
+    status: { name: "NOTACTIVE", id: 0 },
+    routes: newRouteData,
   });
   return { globalState, globalDispatch };
 };
